@@ -1,6 +1,6 @@
-# hep
+# HEPv3
 
-TODO: Write a description here
+Crystal Lang Implementation.
 
 ## Installation
 
@@ -9,18 +9,14 @@ TODO: Write a description here
    ```yaml
    dependencies:
      hep:
-       github: your-github-user/hep
+       github: bit4bit/hep.cr
    ```
 
 2. Run `shards install`
 
 ## Usage
 
-```crystal
-require "hep"
-```
-
-TODO: Write usage instructions here
+[see](spec/hep_protocol_spec.cr)
 
 ## Development
 
@@ -28,7 +24,7 @@ TODO: Write usage instructions here
 
 ## Contributing
 
-1. Fork it (<https://github.com/your-github-user/hep/fork>)
+1. Fork it (<https://github.com/bit4bit/hep.cr/fork>)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
@@ -36,4 +32,4 @@ TODO: Write usage instructions here
 
 ## Contributors
 
-- [Jovany Leandro G.C](https://github.com/your-github-user) - creator and maintainer
+- [Jovany Leandro G.C](https://github.com/bit4bit) - creator and maintainer
