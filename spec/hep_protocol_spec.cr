@@ -29,4 +29,10 @@ describe HEP::Protocol do
     HEP::Protocol::Chunk::CaptureID.build(packet).to_s.should eq("228")
     HEP::Protocol::Chunk::Payload.build(packet).to_s.should eq("INVITE sip:bob")
   end
+
+  it "validate HEP version" do
+    expect_raises(HEP::Protocol::VersionError) do
+      HEP::Protocol.parse(Bytes[0x48, 0x45, 0x00, 0x00])
+    end
+  end
 end

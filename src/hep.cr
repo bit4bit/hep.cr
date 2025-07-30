@@ -4,10 +4,22 @@ module HEP
 end
 
 module HEP::Protocol
+  class VersionError < Exception
+    def initialize
+      super("HEP version is not supported")
+    end
+  end
+
   def self.parse(bytes)
-    packet = Packet.new(bytes)
-    packet.parse
-    packet
+    io = IO::Memory.new(bytes)
+    case io.read_bytes(UInt32, IO::ByteFormat::BigEndian)
+    when 0x48455033 # HEP3
+      packet = PacketHEPv3.new
+      packet.parse(io)
+      packet
+    else
+      raise VersionError.new
+    end
   end
 end
 
@@ -25,15 +37,12 @@ class HEP::Protocol::Chunk::IPV4SourceAddress
   end
 end
 
-class HEP::Protocol::Packet
-  def initialize(bytes : Bytes)
-    @bytes = bytes
+class HEP::Protocol::PacketHEPv3
+  def initialize
     @chunk_of = Hash(UInt32, Bytes).new
   end
 
-  def parse
-    io = IO::Memory.new(@bytes)
-    header = io.read_bytes(UInt32, IO::ByteFormat::BigEndian)
+  def parse(io)
     length = io.read_bytes(UInt16, IO::ByteFormat::BigEndian)
 
     while io.pos < length
